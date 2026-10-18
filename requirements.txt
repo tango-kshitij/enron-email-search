@@ -1,0 +1,22 @@
+# Data Ingestion, Processing & Columnar Storage
+numpy>=1.24.0
+pandas>=2.0.0
+pyarrow>=14.0.0
+tqdm>=4.66.0
+
+# Text Preprocessing (Tokenization, Stop Words, Stemming)
+nltk>=3.8.1
+
+# Enterprise Document Indexing & Lexical Ranking (TF-IDF, BM25)
+scikit-learn>=1.3.0
+rank-bm25>=0.2.2
+joblib>=1.3.0
+
+# Dense Semantic Ranking (Sentence Transformer & Vector Index)
+torch>=2.0.0
+sentence-transformers>=2.6.0
+faiss-cpu>=1.7.4
+
+# Output, Evaluation & Search Interface
+matplotlib>=3.7.0
+streamlit>=1.32.0

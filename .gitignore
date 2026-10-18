@@ -1,0 +1,20 @@
+﻿# Ignore virtual environments
+venv/
+.venv/
+ENV/
+
+# Ignore Python cache
+__pycache__/
+*.py[cod]
+
+# Ignore large Enron dataset & generated indices (exceeds GitHub 100MB limit)
+emails.csv
+*.parquet
+enron_indices/
+*.joblib
+*.index
+
+# OS / IDE files
+.DS_Store
+.vscode/
+.idea/
