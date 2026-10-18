@@ -6,7 +6,7 @@ An end-to-end Enterprise Information Retrieval (IR) search engine built on the *
 
 ## Project Overview & Standardized Tasks
 
-1. **Text Preprocessing (`preprocess_enron.py`)**
+1. **Text Preprocessing (`preprocess.py`)**
    * **Header & Body Cleaning:** Parses RFC 822 raw email strings to extract metadata (`Message-ID`, `Date`, `From`, `To`, `Subject`) and strips forwarded blocks, inline reply headers, quoted lines (`>`), HTML tags, and URLs.
    * **Conversation Thread Reconstruction:** Normalizes `Re:`, `Fwd:`, and `FW:` prefixes and hashes normalized subject lines to group related emails into unified `Thread-ID` buckets.
    * **Tokenization & Stemming:** Applies lowercase normalization, regex tokenization, custom enterprise stop-word removal, and Porter Stemming (`PorterStemmer`) for lexical indices while retaining clean, natural text for dense semantic models.
@@ -20,9 +20,11 @@ An end-to-end Enterprise Information Retrieval (IR) search engine built on the *
    * **BM25:** Probabilistic Okapi BM25 ranking (`rank_bm25`, $k_1 = 1.5, b = 0.75$) with document length normalization.
    * **Sentence Transformer:** Dense semantic retrieval using `all-MiniLM-L6-v2` (`sentence-transformers` + `faiss-cpu`).
    * **Hybrid Model — Reciprocal Rank Fusion (RRF):** Combines rankings from all three retrieval paradigms without requiring score calibration:
-     $$\text{RRF\_Score}(d \in D) = \sum_{m \in M} \frac{1}{k + r_m(d)} \quad (k = 60)$$
+$$
+\text{RRF Score}(d \in D) = \sum_{m \in M} \frac{1}{k + r_m(d)} \quad (k = 60)
+$$
 
-4. **Output & Evaluation (`evaluate_and_ui.py`)**
+4. **Output & Evaluation (`evaluate.py`)**
    * **IR Evaluation Suite:** Benchmarks all four models using **Precision@10**, **Recall**, **MAP (Mean Average Precision)**, and **nDCG@10 (Normalized Discounted Cumulative Gain)**.
    * **Visualizations & Artifacts:** Generates a **Performance Comparison Table** (`performance_comparison.csv`) and an **11-Point Interpolated Precision-Recall Graph** (`precision_recall_graph.png`).
    * **Interactive Search Interface:** A full-featured **Streamlit** web application supporting keyword highlighting, field scope filtering, conversation thread grouping, and live evaluation metrics.
@@ -109,13 +111,28 @@ streamlit run evaluate_and_ui.py
 ## Evaluation Metrics Implemented
 
 * **Precision@10 ($P@10$):** Fraction of top-10 retrieved emails that are relevant:
-  $$P@10 = \frac{|\{\text{Relevant}\} \cap \{\text{Top 10 Retrieved}\}|}{10}$$
+
+$$
+P@10 = \frac{\lvert \{\text{Relevant}\} \cap \{\text{Top 10 Retrieved}\} \rvert}{10}
+$$
+
 * **Recall@K:** Fraction of all relevant emails in the pooled ground truth retrieved within the top $K$ results:
-  $$\text{Recall}@K = \frac{|\{\text{Relevant}\} \cap \{\text{Top } K \text{ Retrieved}\}|}{|\{\text{All Relevant}\}|}$$
+
+$$
+\text{Recall}@K = \frac{\lvert \{\text{Relevant}\} \cap \{\text{Top } K \text{ Retrieved}\} \rvert}{\lvert \{\text{All Relevant}\} \rvert}
+$$
+
 * **Mean Average Precision ($\text{MAP}$):** Mean of the Average Precision scores across all benchmark queries $Q$:
-  $$\text{MAP} = \frac{1}{|Q|} \sum_{q=1}^{|Q|} \frac{1}{m_q} \sum_{k=1}^{K} P@k \cdot \text{rel}_q(k)$$
+
+$$
+\text{MAP} = \frac{1}{\lvert Q \rvert} \sum_{q=1}^{\lvert Q \rvert} \frac{1}{m_q} \sum_{k=1}^{K} P@k \cdot \text{rel}_q(k)
+$$
+
 * **Normalized Discounted Cumulative Gain ($\text{nDCG}@10$):** Evaluates graded relevance ($\text{rel}_i \in \{0, 1, 2\}$) with logarithmic rank discounting:
-  $$\text{nDCG}@10 = \frac{\text{DCG}@10}{\text{IDCG}@10}, \quad \text{DCG}@10 = \sum_{i=1}^{10} \frac{2^{\text{rel}_i} - 1}{\log_2(i + 1)}$$
+
+$$
+\text{nDCG}@10 = \frac{\text{DCG}@10}{\text{IDCG}@10}, \quad \text{DCG}@10 = \sum_{i=1}^{10} \frac{2^{\text{rel}_i} - 1}{\log_2(i + 1)}
+$$
 
 ---
 
