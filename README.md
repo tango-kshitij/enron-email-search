@@ -1,10 +1,10 @@
-# 📧 Enterprise Email Search Engine using Enron Dataset
+# Enterprise Email Search Engine using Enron Dataset
 
 An end-to-end Enterprise Information Retrieval (IR) search engine built on the **Enron Email Dataset** (500,000+ real enterprise email messages from senior management). This system enables multi-field search across **email body text, subject lines, and reconstructed conversation threads**, combining classical lexical retrieval (**TF-IDF**, **BM25**) with dense neural embeddings (**Sentence Transformers**) via **Reciprocal Rank Fusion (RRF)**.
 
 ---
 
-## 🎯 Project Overview & Standardized Tasks
+## Project Overview & Standardized Tasks
 
 1. **Text Preprocessing (`preprocess_enron.py`)**
    * **Header & Body Cleaning:** Parses RFC 822 raw email strings to extract metadata (`Message-ID`, `Date`, `From`, `To`, `Subject`) and strips forwarded blocks, inline reply headers, quoted lines (`>`), HTML tags, and URLs.
@@ -29,7 +29,7 @@ An end-to-end Enterprise Information Retrieval (IR) search engine built on the *
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```text
 ├── preprocess_enron.py          # Step 1: RFC 822 parsing, cleaning, thread grouping, stemming
@@ -47,8 +47,8 @@ An end-to-end Enterprise Information Retrieval (IR) search engine built on the *
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/<YOUR-USERNAME>/<YOUR-REPO-NAME>.git
-cd <YOUR-REPO-NAME>
+git clone https://github.com/tango-kshitij/enron-email-search.git
+cd enron-email-search
 ```
 
 ### 2. Create a Virtual Environment & Install Dependencies
@@ -72,7 +72,7 @@ pip install -r requirements.txt
 
 ---
 
-## 🚀 Usage Guide
+## Usage Guide
 
 ### Step 1: Preprocess the Dataset
 Run the preprocessing pipeline to parse headers/bodies, reconstruct conversation threads, and generate stemmed and semantic columns:
@@ -106,7 +106,7 @@ streamlit run evaluate_and_ui.py
 
 ---
 
-## 📊 Evaluation Metrics Implemented
+## Evaluation Metrics Implemented
 
 * **Precision@10 ($P@10$):** Fraction of top-10 retrieved emails that are relevant:
   $$P@10 = \frac{|\{\text{Relevant}\} \cap \{\text{Top 10 Retrieved}\}|}{10}$$
@@ -119,7 +119,7 @@ streamlit run evaluate_and_ui.py
 
 ---
 
-## 🧠 Learning Outcomes
+## Learning Outcomes
 
 * **Semi-Structured Text Search:** Parsing RFC 822 headers, stripping reply noise, and weighting structural email fields (`Subject` vs. `Body`).
 * **Enterprise Archival IR:** Reconstructing multi-message email threads and indexing high-volume archival communications.
