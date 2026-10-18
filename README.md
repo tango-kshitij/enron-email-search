@@ -20,6 +20,7 @@ An end-to-end Enterprise Information Retrieval (IR) search engine built on the *
    * **BM25:** Probabilistic Okapi BM25 ranking (`rank_bm25`, $k_1 = 1.5, b = 0.75$) with document length normalization.
    * **Sentence Transformer:** Dense semantic retrieval using `all-MiniLM-L6-v2` (`sentence-transformers` + `faiss-cpu`).
    * **Hybrid Model — Reciprocal Rank Fusion (RRF):** Combines rankings from all three retrieval paradigms without requiring score calibration:
+
 $$
 \text{RRF Score}(d \in D) = \sum_{m \in M} \frac{1}{k + r_m(d)} \quad (k = 60)
 $$
