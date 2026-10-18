@@ -43,7 +43,7 @@ An end-to-end Enterprise Information Retrieval (IR) search engine built on the *
 
 ---
 
-## ⚙️ Installation & Setup
+## Installation & Setup
 
 ### 1. Clone the Repository
 ```bash
